@@ -9,16 +9,13 @@ import { toast } from 'react-toastify';
 
 const Navbar = () => {
 
-  // const [item, setItem] = useState(false);
+
   const {setShowLogin, showLogin, item, setItem, setUserState, userLogin, setUserLogin} = useStoreContext();
   const [log, setLog] = useState(false);
 
   const navigate = useNavigate();
 
-  // const navigate = useNavigate();
-  // const handleClick = ()=>{
-  //   navigate('/');
-  // }
+ 
 
   const logout = async(e)=>{
     e.target.preventDefault();
