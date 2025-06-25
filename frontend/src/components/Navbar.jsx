@@ -40,7 +40,7 @@ const Navbar = () => {
       <div className='flex pt-4 pb-4 rounded-xl  gap-50 items-center w-full bg-white '>
         <img src={assets.freshDose_logo_3} alt=""
         className='w-50 ml-5 cursor-cell'
-   
+        onClick={navigate('/')}
         />
         <div className='flex gap-15 items-center'>
           <ul className='flex gap-5'>

@@ -22,7 +22,7 @@ export const StoreProvider = ({ children }) => {
   useEffect(() => {
   const checkLogin = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/user/me", {
+      const { data } = await axios.get("http://localhost:5000/api/user", {
         withCredentials: true,
       });
       if (data.success) {
