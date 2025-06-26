@@ -1,3 +1,5 @@
+//User registration router
+
 import express from 'express'
 import { login, logout } from '../controller/adminController.js';
 import { adminAuth } from '../middleware/authendicate.js';

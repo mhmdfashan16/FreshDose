@@ -1,3 +1,5 @@
+//Doctor router
+
 import express from 'express'
 import { addDoctor, allDoctors, removeDoctor } from '../controller/doctorController.js';
 import {uploadSingle} from '../config/multer.js';
