@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router'
+import { Link, NavLink} from 'react-router'
 import assets from '../assets/assets'
 import { useStoreContext } from '../context/StoreContext';
 import axios from 'axios';
@@ -10,11 +10,8 @@ import { toast } from 'react-toastify';
 const Navbar = () => {
 
 
-  const {setShowLogin, showLogin, item, setItem, setUserState, userLogin, setUserLogin} = useStoreContext();
+  const {setShowLogin, showLogin, item, setItem, setUserState, userLogin, setUserLogin, cartItems, navigate} = useStoreContext();
   const [log, setLog] = useState(false);
-
-  const navigate = useNavigate();
-
  
 
   const logout = async(e)=>{
@@ -40,9 +37,9 @@ const Navbar = () => {
       <div className='flex pt-4 pb-4 rounded-xl  gap-50 items-center w-full bg-white '>
         <img src={assets.freshDose_logo_3} alt=""
         className='w-50 ml-5 cursor-cell'
-        // onClick={navigate('/')}
+        onClick={()=> navigate('/')}
         />
-        <div className='flex gap-15 items-center'>
+        <div className='flex gap-10 items-center'>
           <ul className='flex gap-5'>
             <NavLink to={'/'}>Home</NavLink>
             <a href="#all-tablets">All Tablets</a>
@@ -79,6 +76,12 @@ const Navbar = () => {
           <div className=' flex bg-black text-white rounded-full w-6 h-6 items-center justify-center ml-3 font-bold cursor-all-scroll'>
             A
           </div>
+        </div>
+        <div className='p-0 cursor-pointer'
+        onClick={()=>navigate('/cart')}
+        >
+          {cartItems && <div className='flex absolute right-70 top-4.5 w-5 h-5 bg-gray-700 rounded-full text-sm text-white font-bold items-center justify-center'>5</div>}
+          <img src={assets.cart_icon} alt="" className='w-7 h-8'/>
         </div>
 
       {/* Login Button with hover effect */}        

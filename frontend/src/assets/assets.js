@@ -21,6 +21,7 @@ import userIcon from '../assets/userIcon.png'
 import adminIcon from '../assets/admin.png'
 import admin_panel from '../assets/admin-panel.png'
 import tablet_bg from '../assets/tablet_bg.jpg'
+import cart_icon from '../assets/shopping-bag.png'
 const assets={
     medi_logo,
     list_icon,
@@ -44,7 +45,8 @@ const assets={
     banner,
     userIcon,
     tablet_bg,
-    adminIcon
+    adminIcon,
+    cart_icon
     
 }
 export default assets;

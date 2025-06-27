@@ -13,6 +13,7 @@ import Home from "./components/Home";
 import Doctors from "./pages/Doctors";
 import Footer from "./components/Footer";
 import AminLogin from "./pages/admin/AminLogin";
+import Cart from "./pages/Cart";
 
 const App = () => {
   const { showLogin, setShowLogin, showChatBot, userState } = useStoreContext();
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/doctors" element={<Doctors/>}/>
         <Route path="/chat" element={<Chat/>}/>
         <Route path="/admin-login" element={<AminLogin/>}/>
+        <Route path="/cart" element={<Cart/>}/>
       </Routes>
       {userState && <Footer/>}
 

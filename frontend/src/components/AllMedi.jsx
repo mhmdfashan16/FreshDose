@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import tablets from '../assets/tablets'
+import { useStoreContext } from '../context/StoreContext';
 
 const AllMedi = () => {
-  const [cartItems, setCartItems] = useState(0);
+  const {cartItems, setCartItems} = useStoreContext();
+  
   const [count, setCount] = useState(0);
   const countIncre =()=>{
 

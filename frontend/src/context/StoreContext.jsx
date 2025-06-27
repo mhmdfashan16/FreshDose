@@ -41,6 +41,10 @@ useEffect(() => {
   checkLogin();
 }, []);
 
+useEffect(()=>{
+  
+},[navigate])
+
 
 
   const value={
@@ -51,6 +55,7 @@ useEffect(() => {
     item, setItem,
     userState, setUserState,
     userLogin,setUserLogin,
+    cartItems, setCartItems
     
   }
 
