@@ -20,6 +20,7 @@ import banner from '../assets/banner_1.jpg'
 import userIcon from '../assets/userIcon.png'
 import adminIcon from '../assets/admin.png'
 import admin_panel from '../assets/admin-panel.png'
+import tablet_bg from '../assets/tablet_bg.jpg'
 const assets={
     medi_logo,
     list_icon,
@@ -42,6 +43,7 @@ const assets={
     tablet_5,
     banner,
     userIcon,
+    tablet_bg,
     adminIcon
     
 }

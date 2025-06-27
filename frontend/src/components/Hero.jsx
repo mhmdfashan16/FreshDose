@@ -21,7 +21,7 @@ const Hero = () => {
 
   return (
     <div className='pl-20 pr-20'>
-      <div className="flex flex-col gap-15 mt-10 rounded-xl p-10 bg-cover bg-center w-full  ">
+      <div className="flex flex-col gap-15 mt-10 rounded-xl p-10 bg-cover bg-center w-full "style={{backgroundImage:`url(${assets.tablet_bg})`}}>
       {/* style={{ backgroundImage: `url(${assets.banner})` }}  */}
      
       <div className='flex flex-col justify-center items-center gap-10 top-55 w-300'>

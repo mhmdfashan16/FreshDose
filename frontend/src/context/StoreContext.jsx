@@ -12,30 +12,35 @@ const StoreContext = createContext();
 export const StoreProvider = ({ children }) => {
   const [showLogin, setShowLogin] = useState(false);
   const [showChatBot, setShowChatBot] = useState(false);
-  const [user, setUser]= useState(null)
+  const [user, setUser]= useState(false)
   
   const navigate = useNavigate();
   const [item, setItem] = useState(false);
   const [userState, setUserState] = useState(true);
   const[userLogin, setUserLogin] = useState(false);
+  const [cartItems, setCartItems] = useState({});
 
-  useEffect(() => {
+useEffect(() => {
   const checkLogin = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/user", {
-        withCredentials: true,
-      });
+      const { data } = await axios.get("/api/user/me", { withCredentials: true });
       if (data.success) {
         setUserLogin(true);
         setUser(data.user);
+      } else {
+        setUserLogin(false);
+        setUser(null);
       }
-    } catch (error) {
-      setIsLoggedIn(false);
+    } catch (err) {
+      setUserLogin(false);
+      setUser(null);
+      console.error(err);
     }
   };
 
   checkLogin();
 }, []);
+
 
 
   const value={

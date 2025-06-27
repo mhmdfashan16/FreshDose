@@ -84,3 +84,40 @@ export const logout = async (req, res)=>{
         return res.json({success:false, message:error.message});
     }
 }
+
+export const authUser = async(req, res)=>{
+    try{
+      const {userId}= req;
+      if(!userId){
+        return res.json({
+          success:false,
+          message:"User not authendicated"
+        })
+      }
+      const user = await User.findById(userId).select
+    }catch(error){
+      return res.json({success:false, message:error.message})
+    }
+}
+
+
+export const getMyProfile = async (req, res) => {
+  try {
+    const token = req.cookies.userToken;
+    if (!token) {
+      return res.status(401).json({ success: false, message: "Not logged in" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select("-password"); 
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Something went wrong" });
+  }
+};

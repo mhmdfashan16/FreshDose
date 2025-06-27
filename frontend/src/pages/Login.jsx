@@ -34,6 +34,9 @@ const Login = () => {
     if(data.success){
       setShowLogin(false);
       setUserLogin(true);
+      setUser(data.user);
+      
+
       toast.success(data.message);
       
     }else{
