@@ -10,14 +10,12 @@ import { toast } from 'react-toastify';
 const Navbar = () => {
 
 
-  const {setShowLogin, showLogin, item, setItem, setUserState, userLogin, setUserLogin, cartItems, navigate} = useStoreContext();
+  const {setShowLogin, showLogin, item, setItem, setUserState, userLogin, setUserLogin, cartItems, navigate, adminState, setAdminState} = useStoreContext();
   const [log, setLog] = useState(false);
  
 
   const logout = async(e)=>{
-    
-    try{
-     
+    try{     
       const {data}=await axios.get('/api/user/logout');
       if(data.success){
         toast.success(data.success);
@@ -107,7 +105,7 @@ const Navbar = () => {
           <hr className='text-gray-400 p-0 m-0'/>
           <div 
           onClick={()=>{
-            navigate("/admin-login"); 
+            setAdminState(true); 
             setUserState(false);
           }}
           className='p-3 flex gap-3 rounded-b-xl hover:bg-gray-400 cursor-pointer'>

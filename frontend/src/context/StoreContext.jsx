@@ -19,11 +19,12 @@ export const StoreProvider = ({ children }) => {
   const [userState, setUserState] = useState(true);
   const[userLogin, setUserLogin] = useState(false);
   const [cartItems, setCartItems] = useState({});
+  const [adminState, setAdminState] = useState(false);
 
 useEffect(() => {
   const checkLogin = async () => {
     try {
-      const { data } = await axios.get("/api/user/me", { withCredentials: true });
+      const { data } = await axios.get('/api/user/me', { withCredentials: true });
       if (data.success) {
         setUserLogin(true);
         setUser(data.user);
@@ -55,7 +56,8 @@ useEffect(()=>{
     item, setItem,
     userState, setUserState,
     userLogin,setUserLogin,
-    cartItems, setCartItems
+    cartItems, setCartItems,
+    adminState,setAdminState
     
   }
 

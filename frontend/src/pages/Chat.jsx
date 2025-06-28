@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router';
 import { useStoreContext } from '../context/StoreContext';
 import { useRef } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+
 
 const Chat = () => {
   const navigate = useNavigate();
-  const {setShowChatBot} = useStoreContext();
-const userId = "684c72f77e3a77dcff470b2a";
- 
+  const {setShowChatBot, user} = useStoreContext();
+
+
   const [conversation, setConversation] = useState([ 
     {
     sender: "chatbot",
@@ -24,10 +24,10 @@ const userId = "684c72f77e3a77dcff470b2a";
     useEffect(() => {
       const fetchHistory = async () => {
         try {
-          const { data } = await axios.get(`http://localhost:5000/api/messages/history/${userId}`);
-          if (data.success) {
-            setConversation(data.messages);
-            
+          // const { data } = await axios.get(`http://localhost:5000/api/chat/history`,{withCredentials:true});
+          if (user) {
+            setConversation(user.chatHistory);
+           
           } else {
             // If no history, fall back to welcome message
             setConversation([
@@ -51,7 +51,7 @@ const userId = "684c72f77e3a77dcff470b2a";
       };
 
       fetchHistory();
-    }, [userId]);
+    }, [user]);
 
 
   const [inputMessage, setInputMessage] = useState('');
@@ -60,55 +60,65 @@ const userId = "684c72f77e3a77dcff470b2a";
   //for Scroll
   const bottomRef = useRef(null);
 
-  const handleSendMessage = async()=>{
-    if(!inputMessage.trim()) return;
+  const handleSendMessage = async () => {
+  if (!inputMessage.trim()) return;
 
-    //Add user message
-    const newMessage = {
-      sender:'user',
-      message:inputMessage
-    }
-
-    setConversation(prev => [...prev, newMessage]);
-
-    const userMessage = inputMessage;
-
-    //Clear input
-    setInputMessage('');
-
-    //Retrive the Data from backend
-    try{
-      const {data} = await axios.post('/api/chat/chat',{
-        message:userMessage
-      });
-      if(data.success){
-        const botMessage = {
-          sender: 'chatbot',
-          message:data.reply,
-        };
-        setConversation(prev => [...prev, botMessage]);
-      }else{
-        setConversation(prev => [...prev,{
-          sender:'chatbot',
-          message:"Sorry something went wrong."
-        }]);
-      }
-    }catch(error){
-      console.log(error.message);
-      setConversation(prev => [...prev, {
-        sender: 'chatbot',
-        message: 'Error reaching server. please try again'
-      }])
-    }
-
-    // setTimeout(()=>{
-    //   setConversation(prev => [...prev,{
-    //     sender:'chatbot',
-    //     message:'Thinking for your questions...'
-    //   }
-    // ]);
-    // },1000);
+  const newMessage = {
+    sender: 'user',
+    message: inputMessage
   };
+
+  // 1. Show user's message
+  setConversation(prev => [...prev, newMessage]);
+
+  const userMessage = inputMessage;
+
+  // 2. Clear input
+  setInputMessage('');
+
+  // 3. Show "Thinking..." message immediately
+  const thinkingMessage = {
+    sender: 'chatbot',
+    message: 'Thinking...'
+  };
+  setConversation(prev => [...prev, thinkingMessage]);
+
+  try {
+    // 4. Send request
+    const { data } = await axios.post('/api/chat/chat', {
+      message: userMessage
+    });
+
+    // 5. Replace "Thinking..." with real response
+    if (data.success) {
+      setConversation(prev => [
+        ...prev.slice(0, -1), // remove "Thinking..."
+        {
+          sender: 'chatbot',
+          message: data.reply
+        }
+      ]);
+    } else {
+      setConversation(prev => [
+        ...prev.slice(0, -1),
+        {
+          sender: 'chatbot',
+          message: "Sorry something went wrong."
+        }
+      ]);
+    }
+
+  } catch (error) {
+    console.error(error.message);
+    setConversation(prev => [
+      ...prev.slice(0, -1),
+      {
+        sender: 'chatbot',
+        message: 'Error reaching server. Please try again.'
+      }
+    ]);
+  }
+};
 
   
   const handleKeyDown = (e) => {
@@ -144,15 +154,15 @@ const userId = "684c72f77e3a77dcff470b2a";
   <div className='bg-gray-500 pt-4 h-120 pb-4 max-h-120 overflow-y-auto'>
     {
       conversation.map((message, index) => (
-        <div key={index} className={message.sender === "chatbot" ? "text-left pl-4" : "text-right flex justify-end"}>
-          <div className={message.sender === "chatbot" ? "w-fit pr-4" : "flex flex-col w-fit pr-4 items-end"}>
+        <div key={index} className={message.sender === "bot" ? "text-left pl-4" : "text-right flex justify-end"}>
+          <div className={message.sender === "bot" ? "w-fit pr-4" : "flex flex-col w-fit pr-4 items-end"}>
             {
-              message.sender === "chatbot"
+              message.sender === "bot"
                 ? <img src={assets.chatBot_icon} alt="" className='w-10 h-10' />
                 : <img src={assets.user_icon} alt="" className='w-10 h-10 items-center' />
             }
             <p
-              className={message.sender === "chatbot"
+              className={message.sender === "bot"
                 ? "bg-black/20 p-2 ml-10 max-w-2xl rounded-xl text-gray-200 rounded-tl-none"
                 : "bg-black/20 p-2 mt-1 mr-8 max-w-2xl rounded-xl text-gray-200 rounded-tr-none"}
             >

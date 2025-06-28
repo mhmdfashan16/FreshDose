@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { decode } from "punycode";
 
 export const Register = async (req, res) => {
   try {
@@ -121,3 +122,24 @@ export const getMyProfile = async (req, res) => {
     res.status(500).json({ success: false, message: "Something went wrong" });
   }
 };
+
+export const userChatHistory =async (req,res)=>{
+    try{
+        const token = req.cookies.userToken;
+        if(!token){
+          return res.json({
+            success:false,
+            message:"user not exist"
+          })
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        // const user = await User.findById(decoded.id);
+        const history = await User.findById(decoded.id);
+        res.json({
+          success:true,
+          message:history
+        })
+    }catch(error){
+      return res.json({success:false, message:error.message});
+    }
+}

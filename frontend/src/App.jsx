@@ -16,14 +16,15 @@ import AminLogin from "./pages/admin/AminLogin";
 import Cart from "./pages/Cart";
 
 const App = () => {
-  const { showLogin, setShowLogin, showChatBot, userState } = useStoreContext();
+  const { showLogin, setShowLogin, showChatBot, userState, adminState, setAdminState } = useStoreContext();
 
   return (
     
     <div className="">
       {showLogin ? <Login /> : <></>}
       {showChatBot && <Chat/>}
-      {userState && <Navbar />}
+      <Navbar />
+      {adminState && <AminLogin/>}
       <ToastContainer position="top-right"
         autoClose={3000}
         hideProgressBar={false}

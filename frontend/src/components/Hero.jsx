@@ -33,9 +33,12 @@ const Hero = () => {
         <p className='text-3xl text-center'>Order medicines, get doctor advice, and chat with our smart assistant - all from the comfort of your home. Fast delivery. Secure payments. Trusted care.</p>
       </div>
       <div className='flex justify-center gap-10 items-center'>
-        <img src={assets.chatBot_icon} alt="" 
-        className='w-10 h-10 cursor-pointer'
+        <img src={assets.chatBot_icon}
+        alt="Chatbot"
+        // className="w-12 h-12 animate-bounce origin-bottom-right"
+        className='w-13 h-13 cursor-pointer rounded-full p-1 transition-transform duration-100 animate-bounce'
         onClick={()=>setShowChatBot(true)}
+
         />
  <Link to={'/doctors'}>
         <button
