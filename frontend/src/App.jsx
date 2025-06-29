@@ -15,13 +15,15 @@ import Footer from "./components/Footer";
 import AminLogin from "./pages/admin/AminLogin";
 import Cart from "./pages/Cart";
 import AdminCatalouge from "./pages/admin/AdminCatalouge";
+import assets from "./assets/assets";
 
 const App = () => {
-  const { showLogin, setShowLogin, showChatBot, userState, adminState, setAdminState } = useStoreContext();
+  const { showLogin, setShowLogin, showChatBot, setShowChatBot, userState, adminState, setAdminState, navigate } = useStoreContext();
 
   return (
     
     <div className="">
+      <img src={assets.chatBot_icon} alt="" className="fixed w-20 bottom-8 right-8 duration-100 animate-pulse cursor-pointer border-4 rounded-full p-2" onClick={()=>setShowChatBot(true)}/>
       {showLogin ? <Login /> : <></>}
       {showChatBot && <Chat/>}
       {userState ? <Navbar />:''}
