@@ -20,6 +20,8 @@ export const StoreProvider = ({ children }) => {
   const[userLogin, setUserLogin] = useState(false);
   const [cartItems, setCartItems] = useState({});
   const [adminState, setAdminState] = useState(false);
+  const [admin, setAdmin]= useState(false);
+  
 
 useEffect(() => {
   const checkLogin = async () => {
@@ -57,7 +59,8 @@ useEffect(()=>{
     userState, setUserState,
     userLogin,setUserLogin,
     cartItems, setCartItems,
-    adminState,setAdminState
+    adminState,setAdminState,
+    admin, setAdmin
     
   }
 

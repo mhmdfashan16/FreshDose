@@ -14,6 +14,7 @@ import Doctors from "./pages/Doctors";
 import Footer from "./components/Footer";
 import AminLogin from "./pages/admin/AminLogin";
 import Cart from "./pages/Cart";
+import AdminCatalouge from "./pages/admin/AdminCatalouge";
 
 const App = () => {
   const { showLogin, setShowLogin, showChatBot, userState, adminState, setAdminState } = useStoreContext();
@@ -23,7 +24,7 @@ const App = () => {
     <div className="">
       {showLogin ? <Login /> : <></>}
       {showChatBot && <Chat/>}
-      <Navbar />
+      {userState ? <Navbar />:''}
       {adminState && <AminLogin/>}
       <ToastContainer position="top-right"
         autoClose={3000}
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/chat" element={<Chat/>}/>
         <Route path="/admin-login" element={<AminLogin/>}/>
         <Route path="/cart" element={<Cart/>}/>
+        <Route path="/admin" element={<AdminCatalouge/>}/>
       </Routes>
       {userState && <Footer/>}
 

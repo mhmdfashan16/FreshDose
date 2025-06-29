@@ -22,9 +22,12 @@ import adminIcon from '../assets/admin.png'
 import admin_panel from '../assets/admin-panel.png'
 import tablet_bg from '../assets/tablet_bg.jpg'
 import cart_icon from '../assets/shopping-bag.png'
+import close from '../assets/close.png'
+
 const assets={
     medi_logo,
     list_icon,
+    close,
     send_icon,
     close_btn,
     search_icon,
