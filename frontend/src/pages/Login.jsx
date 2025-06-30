@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 
 const Login = () => {
    
-    const {setShowLogin, setUser, setUserLogin} = useStoreContext();
+    const {setShowLogin, setUser, setUserLogin, user} = useStoreContext();
 
     const [logState, setlogState] = React.useState("register");
 
@@ -18,7 +18,7 @@ const Login = () => {
     const [password, setPassword] = React.useState("");
     const navigate = useNavigate();
 
-  const onSubmitHandler = async (e) => {
+  const onSubmitLoginHandler = async (e) => {
   
   try {
      e.preventDefault(); 
@@ -36,7 +36,6 @@ const Login = () => {
       setUserLogin(true);
       setUser(data.user);
       
-
       toast.success(data.message);
       
     }else{
@@ -47,6 +46,7 @@ const Login = () => {
     console.error(error.message);
   }
 };
+
 
   return (
     <div  onClick={()=>setShowLogin(false)} className='fixed top-0 right-0 left-0 bottom-0 m-0 p-0 w-full h-full bg-black/80 z-1 flex items-center justify-center'> 
@@ -68,7 +68,7 @@ const Login = () => {
        </div>
         
         
-        <form onSubmit={onSubmitHandler} onClick={(e)=>e.stopPropagation()} action="" className='text-white flex flex-col gap-5 mt-8'>
+        <form onSubmit={onSubmitLoginHandler} onClick={(e)=>e.stopPropagation()} action="" className='text-white flex flex-col gap-5 mt-8'>
 
             {
                 logState === "login"

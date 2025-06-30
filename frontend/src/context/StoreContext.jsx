@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL=import.meta.env.VITE_BACKEND_URL;
@@ -21,7 +22,28 @@ export const StoreProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [adminState, setAdminState] = useState(false);
   const [admin, setAdmin]= useState(false);
-  
+  const [isSeller, setIsSeller]=useState(false);
+
+
+const checkIsSeller=async()=>{
+  try{
+    const {data} =  await axios.get('/api/admin/check',{withCredentials:true})
+    if(data.success){
+      toast.success(data.message);
+      setIsSeller(true);
+    }else{
+      toast.error(data.error);
+      setIsSeller(false);
+    }
+  }catch(error){
+    toast.error(error.message);
+  }
+}
+
+useEffect(()=>{
+  checkIsSeller();
+},[])
+
 
 useEffect(() => {
   const checkLogin = async () => {
@@ -45,7 +67,27 @@ useEffect(() => {
 }, []);
 
 useEffect(()=>{
-  
+  const checkAdminLogin=async ()=>{
+   
+    try{
+    const {data} = await axios.get('/api/admin/check',{withCredentials:true});
+    if(data.success){
+      setAdmin(data.admin);
+      setUserState(false);
+    }else{
+      setAdmin(null);
+    }
+    }catch(error){
+      setAdmin(false);
+      console.log(error.message);
+    }
+
+  };
+  checkAdminLogin();
+},[])
+
+useEffect(()=>{
+    
 },[navigate])
 
 
@@ -60,7 +102,9 @@ useEffect(()=>{
     userLogin,setUserLogin,
     cartItems, setCartItems,
     adminState,setAdminState,
-    admin, setAdmin
+    admin, setAdmin,
+    checkIsSeller, isSeller, setIsSeller,
+    
     
   }
 

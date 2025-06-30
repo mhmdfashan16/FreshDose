@@ -23,7 +23,20 @@ const App = () => {
   return (
     
     <div className="">
-      <img src={assets.chatBot_icon} alt="" className="fixed w-20 bottom-8 right-8 duration-100 animate-pulse cursor-pointer border-4 rounded-full p-2" onClick={()=>setShowChatBot(true)}/>
+      {userState &&
+      <div className="group inline-block ">
+      <div className="absolute right-0 w-2xl h-fit opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-900">
+        <div className="fixed flex items-end flex-col right-5 top-95 gap-3">
+        <div className="bg-black text-white pl-3 pr-3 pt-2 pb-2 rounded-2xl text-lg cursor-pointer">Hello</div>
+        <div className="bg-black text-white pl-3 pr-3 pt-2 pb-2 rounded-2xl text-lg cursor-pointer">Hey there! This is Shan Pharmacy Store. How can I help you?</div>
+        <div className="bg-black text-white pl-3 pr-3 pt-2 pb-2 rounded-2xl text-lg cursor-pointer">Hi, I need something for a cold and sore throat.</div>
+        <div className="bg-black text-white pl-3 pr-3 pt-2 pb-2 rounded-2xl text-lg cursor-pointer">Can I pay online?</div>
+        </div>
+      </div>
+      <img src={assets.chatBot_icon} alt="" className="fixed  bottom-8 right-8 w-20 duration-50 animate-pulse border-4 rounded-full p-2 cursor-pointer" onClick={()=>setShowChatBot(true)}/>
+
+      </div>}
+
       {showLogin ? <Login /> : <></>}
       {showChatBot && <Chat/>}
       {userState ? <Navbar />:''}

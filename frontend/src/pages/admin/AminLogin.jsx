@@ -5,9 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const AminLogin = () => {
-  const refreshPage=(e)=>{
-    e.target
-  }
+ 
   const [pass, setPass] = useState(false);
   const {adminState, setAdminState, userState, setUserState, navigate}= useStoreContext();
   const [email, setEmail]= useState('');
@@ -22,9 +20,10 @@ const onSubmitHandler=async(e)=>{
         setUserState(false);
         
         navigate('/admin');
+        toast.success(data.message);
       }
 
-      toast.success(data.message);
+      
     }catch(error){
       toast.error(error.message)
     }

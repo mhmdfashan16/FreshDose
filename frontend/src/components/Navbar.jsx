@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 const Navbar = () => {
 
 
-  const {setShowLogin, showLogin, item, setItem, setUserState, userLogin, setUserLogin, cartItems, navigate, adminState, setAdminState} = useStoreContext();
+  const {setShowLogin, showLogin, item, setItem, setUserState, userLogin, user,setUserLogin, cartItems, navigate, adminState, setAdminState} = useStoreContext();
   const [log, setLog] = useState(false);
  
 
@@ -28,7 +28,7 @@ const Navbar = () => {
     }
   }
 
-
+console.log(user);
 
   return (
       <div className='flex justify-center pl-35 pr-35 rounded-md items-center'>
@@ -72,13 +72,13 @@ const Navbar = () => {
           className='w-4 h-4'
           />
           <div className=' flex bg-black text-white rounded-full w-6 h-6 items-center justify-center ml-3 font-bold cursor-all-scroll'>
-            A
+            {user?user.userName.charAt(0).toUpperCase(0):'A'}
           </div>
         </div>
         <div className='p-0 cursor-pointer'
         onClick={()=>navigate('/cart')}
         >
-          {cartItems && <div className='flex absolute right-70 top-4.5 w-5 h-5 bg-gray-700 rounded-full text-sm text-white font-bold items-center justify-center'>5</div>}
+          {cartItems && <div className='flex absolute right-69 top-9 w-5 h-5 bg-gray-700 rounded-full text-sm text-white font-bold items-center justify-center'>5</div>}
           <img src={assets.cart_icon} alt="" className='w-7 h-8'/>
         </div>
 
